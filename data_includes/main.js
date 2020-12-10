@@ -55,8 +55,6 @@ PennController("DeviceCheck+Subject",
             .print()
             .wait()          
      )
-     .log( "Subject" , getVar("Subject") ) 
-)
     
 // Consent
     PennController("Consent",
