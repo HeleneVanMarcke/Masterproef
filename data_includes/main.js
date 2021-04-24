@@ -4,7 +4,7 @@ PennController.ResetPrefix(null) // Shorten command names (keep this line here)
 PennController.DebugOff()
 PennController.SetCounter("Counter")
 PennController.CheckPreloaded().label("Preload")
-PennController.Sequence("DeviceCheck+Subject", "Counter", "Welcome", "Consent", "Preload", "trials", "LexTale_instructions", "LexTale_trials", "QuestionnairePage", "DebriefingPage", "Send", "Closing")
+PennController.Sequence("DeviceCheck+Subject", "Counter", "AskProlificIDpage", "Welcome", "Consent", "Preload", "trials", "LexTale_instructions", "LexTale_trials", "QuestionnairePage", "DebriefingPage", "Send", "Closing")
 
 // Check for L1
 PennController("DeviceCheck+Subject",
@@ -35,6 +35,22 @@ PennController("DeviceCheck+Subject",
     
     )            
        
+  
+// Vragen ProlificID:
+PennController("AskProlificIDpage",
+    newHtml("AskProlificID", "AskProlificID.html")
+        .settings.log()
+        .print()
+    ,
+    newButton("continue", "Continue")
+        .print()
+        .wait(
+            getHtml("AskProlificID").test.complete()
+                .failure( getHtml("AskProlificID").warn() )
+        )                      
+)
+.log( "Subject", getVar("Subject")) 
+
 
 // Welcome, consent, and creditstuff
 // Instructions
